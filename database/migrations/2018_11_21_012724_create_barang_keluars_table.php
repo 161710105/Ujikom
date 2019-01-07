@@ -18,10 +18,12 @@ class CreateBarangKeluarsTable extends Migration
             $table->foreign('id_barang')->references('id')->on('barang_masters')->onDelete('CASCADE');
             $table->integer('quantity');
             $table->integer('harga_barang');
+            $table->string('total');
             $table->unsignedInteger('id_customer');
             $table->foreign('id_customer')->references('id')->on('customers')->onDelete('CASCADE');
             $table->unsignedInteger('id_karyawan');
             $table->foreign('id_karyawan')->references('id')->on('users')->onDelete('CASCADE');
+
             $table->timestamps();
         });
     }

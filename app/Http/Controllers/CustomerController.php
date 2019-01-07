@@ -40,7 +40,7 @@ class CustomerController extends Controller
         $this->validate($request,[
             'nama_customer' => 'required|',
             'alamat' => 'required|',
-            'no_telpon' => 'required|min:11',
+            'no_telpon' => 'required|min:10',
             'tgl_mulai' => 'required|',
             'tgl_akhir' => 'required|'
         ]);

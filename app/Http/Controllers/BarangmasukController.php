@@ -22,6 +22,22 @@ class BarangmasukController extends Controller
         return view('barangmasuk.index',compact('barangmasuk'));
     }
 
+     public function getDetailSupplier(Request $request){
+        $supplier = Supplier::find($request->id);
+        $nama = $supplier->nama;
+        $alamat = $supplier->alamat;
+        $no_telepon = $supplier->no_telepon;
+        
+
+          return json_encode([
+            "nama" => $nama,
+            "alamat" => $alamat,
+            "no_telepon" => $no_telepon,
+
+
+          ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -48,12 +64,14 @@ class BarangmasukController extends Controller
         $barangmasuk->id_barang = $request->id_barang[$id];
         $barangmasuk->quantity = $request->quantity[$id];
         $barangmasuk->harga_barang = $request->harga_barang[$id];
+        $barangmasuk->total = $request->quantity[$id] * $request->harga_barang[$id];
         $barangmasuk->id_karyawan = $request->id_karyawan;
         $barangmasuk->id_supplier = $request->id_supplier[$id];
 
         $barang = Barang_master::findOrFail($request->id_barang[$id]);
         $barang->quantity = $barang->quantity + $request->quantity[$id];
         $barang->harga_barang = $barang->harga_barang + $request->harga_barang[$id];
+
         
         $barang->save();    
 
@@ -109,17 +127,12 @@ class BarangmasukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
-            'id_barang' => 'required|',
-            'quantity' => 'required|',
-            'harga_barang' => 'required|min:3',
-            'id_karyawan' => 'required',
-            'id_supplier' => 'required'
-        ]);
+        
         $barangmasuk = Barang_masuk::findOrFail($id);
         $barangmasuk->id_barang = $request->id_barang;
         $barangmasuk->quantity = $request->quantity;
         $barangmasuk->harga_barang = $request->harga_barang;
+        $barangmasuk->total = $request->quantity * $request->harga_barang;
         $barangmasuk->id_karyawan = $request->id_karyawan;
         $barangmasuk->id_supplier = $request->id_supplier;
         $barangmasuk->save();

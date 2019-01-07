@@ -1,22 +1,23 @@
-@extends('layouts.admin')
+@extends('layouts.admin2')
 @section('content')
-<div class="container-fluid"><hr>
-    <div class="row-fluid">
-      <div class="span12">
-        <div class="widget-box">
-          <div class="widget-title"> <span class="icon"> <i class="icon-pencil"></i> </span>
-            <h5>Edit Produk</h5>
-          </div>
-          <div class="widget-content nopadding">
+<div class="container-fluid">
+	<div class="row">
+        <div class="col-md-12">    
+			<div class="card">
+    			<form class="form-horizontal">
+        			<div class="card-body">
+            			<h4 class="card-title">Supplier</h4>
+          			</div>
+         
 
 			  	<form action="{{ route('supplier.update',$supplier->id) }}" id="form-wizard" class="form-horizontal" method="post" >
 			  		<input name="_method" type="hidden" value="PATCH">
         			{{ csrf_field() }}
 
 
-			  		<div class="control-group {{ $errors->has('nama') ? ' has-error' : '' }}">
-			  			<label class="control-label">Nama :</label>
-			  			<div class="controls">	
+			  		<div class="form-group row {{ $errors->has('nama') ? ' has-error' : '' }}">
+			  			<label for="fname" class="col-sm-3 text-right control-label col-form-label">Nama </label>
+			  			<div class="col-sm-8">	
 			  			<input type="text" name="nama" class="form-control" value="{{ $supplier->nama }}"  required>
 			  			@if ($errors->has('nama'))
                             <span class="help-block">
@@ -26,9 +27,9 @@
 			  		</div>
 			  	</div>
 
-			  		<div class="control-group {{ $errors->has('alamat') ? ' has-error' : '' }}">
-			  			<label class="control-label">Alamat :</label>
-			  			<div class="controls">	
+			  		<div class="form-group row {{ $errors->has('alamat') ? ' has-error' : '' }}">
+			  			<label for="fname" class="col-sm-3 text-right control-label col-form-label">Alamat </label>
+			  			<div class="col-sm-8">	
 			  			<input type="text" name="alamat" class="form-control" value="{{ $supplier->alamat }}"  required>
 			  			@if ($errors->has('alamat'))
                             <span class="help-block">
@@ -38,9 +39,9 @@
 			  		</div>
 			  	</div>
 
-			  		<div class="control-group {{ $errors->has('no_telepon') ? ' has-error' : '' }}">
-			  			<label class="control-label">No Telphone :</label>
-			  			<div class="controls">	
+			  		<div class="form-group row {{ $errors->has('no_telepon') ? ' has-error' : '' }}">
+			  			<label for="fname" class="col-sm-3 text-right control-label col-form-label">No Telphone </label>
+			  			<div class="col-sm-8">	
 			  			<input type="number" name="no_telepon" class="form-control" value="{{ $supplier->no_telepon }}"  required>
 			  			@if ($errors->has('no_telepon'))
                             <span class="help-block">
@@ -50,14 +51,17 @@
 			  		</div>
 			  	</div>
 
-			  		<div class="form-actions">
-			  			<button type="reset" class="btn btn-danger"><a href="{{ url()->previous() }}">Back</a></button>
-              			<button type="submit" class="btn btn-success">Update</button>
+			  		<div class="border-top">
+                        <div class="card-body">
+			  				<button type="reset" class="btn btn-danger"><a href="{{ url()->previous() }}">Back</a></button>
+              				<button type="submit" class="btn btn-success">Update</button>
+            			</div>
             		</div>
-			  	</form>
-			  </div>
-			</div>	
-		</div>
-	</div>
+            	</form>
+            </form>
+        </div>
+    </div>
 </div>
+</div>
+
 @endsection

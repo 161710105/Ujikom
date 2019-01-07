@@ -1,37 +1,32 @@
-@extends('layouts.admin')
+@extends('layouts.admin2')
 @section('content')
 <div class="container-fluid"><hr>
     <div class="row-fluid">
       <div class="span12">
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"> <i class="icon-eye-open"></i> </span>
-            <h5>Show Supplier</h5>
-            	<div class="panel-title pull-right"><a href="{{ url()->previous() }}" class="btn btn-danger"><i class="icon-remove"></i></a></div>
+            <h3>Show Supplier</h3>
+            	<br>
           </div>
           	<div class="widget-content nopadding">
           		<form id="form-wizard" class="form-horizontal">
 
 
         			<div class="control-group">
-			  			<label class="control-label">Nama :</label>
-			  			<div class="controls">	
-			  			<input type="text" name="nama" class="form-control" value="{{ $supplier->nama}}"  readonly>
-			  		</div>
+			  			<label class="control-label">Nama : {{ $supplier->nama}}</label>
+			  			
 			  	</div>
 
 			  		<div class="control-group">
-			  			<label class="control-label">Alamat :</label>
-			  			<div class="controls">	
-			  			<input type="text" name="alamat" class="form-control" value="{{ $supplier->alamat}}"  readonly>
-			  		</div>
+			  			<label class="control-label">Alamat : {{ $supplier->alamat}}</label>
+			  			
 			  	</div>
 
 			  		<div class="control-group">
-			  			<label class="control-label">No Telphone :</label>
-			  			<div class="controls">	
-			  			<input type="number" name="no_telepon" class="form-control" value="{{ $supplier->no_telepon}}"  readonly>
-			  		</div>
+			  			<label class="control-label">No Telphone : {{ $supplier->no_telepon}}</label>
+			  			
 			  	</div>
+			  	<div class="panel-title pull-right"><a href="{{ url()->previous() }}" class="btn btn-danger"><i class="icon-remove">Back</i></a></div>
 			  	</div>
 			</div>	
 		</div>

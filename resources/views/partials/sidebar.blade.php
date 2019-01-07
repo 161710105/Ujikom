@@ -16,6 +16,8 @@
 
 <li><i class="fa fa-table"></i><a href="{{ route('supplier.index') }}">Supplier</a></li>
 
+<li><i class="fa fa-table"></i><a href="{{ route('laporan.index') }}">Laporan</a></li>
+
 @endrole
 
 @role('member')

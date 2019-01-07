@@ -1,21 +1,37 @@
-@extends('layouts.admin')
+@extends('layouts.admin2')
 @section('content')
 <div class="widget-box">
-    <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-        <h5>Supplier</h5>
-            <div class="panel-title pull-right"><a href="{{route('supplier.create') }}">Add</a>
-		</div>
-    </div>
-        <div class="widget-content nopadding">
-            <table id="master" class="table table-bordered data-table">
-				  	<thead>
-			  		<tr>
-			  		  <th>No</th>
+ 	<div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-12 d-flex no-block align-items-center">
+                        <h4 class="page-title">Supplier</h4>
+                        <div class="ml-auto text-right">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"></h5>
+                                
+                                <center><a class="btn btn-outline-primary" href="{{route('supplier.create') }}"><i class="fas fa-plus">Add New Supplier</i></a></center>
+					          </div>
+                                <div class="table-responsive">
+                                    <table id="zero_config" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
 					  <th>Nama Supplier</th>
 					  <th>Alamat</th>
 					  <th>No Telphone</th>
 					  <th></th>
-					  <th>Action Admin</th>
+					  <th></th>
 					  <th></th>
 			  		</tr>
 				  	</thead>
@@ -30,27 +46,27 @@
 				    	<td><p>{{ $data->no_telepon}}</p></td>
 											<td>
 									    		
-												<a class="btn btn-warning btn-mini" href="{{ route('supplier.edit',$data->id) }}"><i class=" icon-edit"></i></a>
+												<center><a class="btn btn-warning " href="{{ route('supplier.edit',$data->id) }}"><i class="ti-pencil"></i></a></center>
 											</td>
 											<td>
-												<a href="{{ route('supplier.show',$data->id) }}" class="btn btn-primary btn-mini"><i class="icon-eye-open"></i></a>
+												<center><a href="{{ route('supplier.show',$data->id) }}" class="btn btn-primary "><i class="ti-eye"></i></a></center>
 											</td>
 											<td>
 												<form method="post" action="{{ route('supplier.destroy',$data->id) }}">
 												<input name="_token" type="hidden" value="{{ csrf_token() }}">
 												<input type="hidden" name="_method" value="DELETE">
 
-												<button type="submit" class="btn btn-danger btn-mini"><i class=" icon-trash"></i></button>
+												<center><button type="submit" class="btn btn-danger "><i class="ti-trash"></i></button></center>
 											</form>
 										</td>
 				      </tr>
-				      @endforeach	
-				  	</tbody>
-				  </table>
-				</div>
-			  </div>
-			</div>	
-		</div>
-	</div>
-</div>
+				      @endforeach
+				      </tbody>
+				  	
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
 @endsection

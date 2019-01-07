@@ -8,6 +8,7 @@ use Session;
 use Yajra\DataTables\Html\Builder;
 use Yajra\DataTables\DataTables;
 use Excel;
+use PDF;
 
 class BarangmasterController extends Controller
 {
@@ -20,6 +21,8 @@ class BarangmasterController extends Controller
     {
         $barang = Barang_master::all();
         return view('barangmaster.index',compact('barang'));
+
+        
     }
 
     /**
@@ -140,11 +143,6 @@ class BarangmasterController extends Controller
 
     // excel 
 
-    public function export() 
-
-    {
-        return view('barangmaster.export');
-    }
 
     public function exportPost()
     {
@@ -175,4 +173,22 @@ class BarangmasterController extends Controller
             });
         })->export('xls');
     }
+
+    //PDF
+
+    public function report(Request $request)
+    {
+         $barangmaster = Barang_master::all();
+         
+        if($request->view_type === 'download') {
+            $pdf = PDF::loadView('barangmaster.report', ['barangmaster' => $barangmaster]);
+            return $pdf->download('barangmaster.pdf');
+        } else {
+            $view = View('barangmaster.report', ['barangmaster' => $barangmaster]);
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadHTML($view->render());
+            return $pdf->stream();
+        }
+    }
+
 }

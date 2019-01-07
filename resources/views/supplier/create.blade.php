@@ -1,21 +1,22 @@
-@extends('layouts.admin')
+@extends('layouts.admin2')
 @section('content')
-<div class="container-fluid"><hr>
-    <div class="row-fluid">
-      <div class="span12">
-        <div class="widget-box">
-          <div class="widget-title"> <span class="icon"> <i class="icon-pencil"></i> </span>
-            <h5>Add Produk</h5>
-          </div>
-          	<div class="widget-content nopadding">
+<div class="container-fluid">
+	<div class="row">
+        <div class="col-md-12">    
+			<div class="card">
+    			
+        			<div class="card-body">
+            			<h4 class="card-title">Supplier</h4>
+          			</div>
+          	
 			  	<form action="{{ route('supplier.store') }}" id="form-wizard" class="form-horizontal" method="post" >
 			  		{{ csrf_field() }}
 
 
-			  		<div class="control-group {{ $errors->has('nama') ? ' has-error' : '' }}">
-			  			<label class="control-label">Nama :</label>
-			  			<div class="controls">	
-			  			<input type="text" name="nama" class="form-control"  required>
+			  		<div class="form-group row {{ $errors->has('nama') ? ' has-error' : '' }}">
+			  			<label for="fname" class="col-sm-3 text-right control-label col-form-label">Nama </label>
+			  			<div class="col-sm-8">	
+			  			<input type="text" name="nama" id="nama" class="form-control"  required>
 			  			@if ($errors->has('nama'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('nama') }}</strong>
@@ -24,10 +25,10 @@
 			  		</div>
 			  	</div>
 
-			  		<div class="control-group {{ $errors->has('alamat') ? ' has-error' : '' }}">
-			  			<label class="control-label">Alamat :</label>
-			  			<div class="controls">	
-			  			<textarea name="alamat" class="form-control" rows="10" required></textarea>
+			  		<div class="form-group row {{ $errors->has('alamat') ? ' has-error' : '' }}">
+			  			<label for="fname" class="col-sm-3 text-right control-label col-form-label">Alamat </label>
+			  			<div class="col-sm-8">	
+			  			<textarea name="alamat" id="alamat" class="form-control" rows="10" required></textarea>
 			  			@if ($errors->has('alamat'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('alamat') }}</strong>
@@ -36,10 +37,10 @@
 			  		</div>
 			  	</div>
 
-			  		<div class="control-group {{ $errors->has('no_telepon') ? ' has-error' : '' }}">
-			  			<label class="control-label">No Telphone :</label>
-			  			<div class="controls">	
-			  			<input type="number" name="no_telepon" class="form-control"  required>
+			  		<div class="form-group row {{ $errors->has('no_telepon') ? ' has-error' : '' }}">
+			  			<label for="fname" class="col-sm-3 text-right control-label col-form-label">No Telphone </label>
+			  			<div class="col-sm-8">	
+			  			<input type="text" name="no_telepon" id="no_telepon" class="form-control "required>
 			  			@if ($errors->has('no_telepon'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('no_telepon') }}</strong>
@@ -48,14 +49,17 @@
 			  		</div>
 			  	</div>
 
-			  		<div class="form-actions">
-			  			<button type="reset" class="btn btn-danger"><a href="{{ url()->previous() }}">Back</a></button>
-              			<button type="submit" class="btn btn-primary">Save</button>
+			  		<div class="border-top">
+                        <div class="card-body">
+			  				<button type="reset" class="btn btn-danger"><a href="{{ url()->previous() }}">Back</a></button>
+              				<button type="submit" class="btn btn-primary">Save</button>
+            			</div>
             		</div>
-			  	</form>
-			  </div>
-			</div>	
-		</div>
-	</div>
+            	</form>
+           
+        </div>
+    </div>
 </div>
+</div>
+
 @endsection

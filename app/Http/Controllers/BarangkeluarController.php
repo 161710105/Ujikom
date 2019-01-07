@@ -23,6 +23,40 @@ class BarangkeluarController extends Controller
         return view('barangkeluar.index',compact('barangkeluar'));
     }
 
+    public function jsonkmbl()
+    {
+        $keluar = Barang_keluar::all();
+        return Datatables::of($keluar);
+    }
+
+    public function getDetailCustomer(Request $request){
+        $customer = Customer::find($request->id);
+        $id_customer = $customer->nama_customer;
+        $alamat = $customer->alamat;
+        $no_telpon = $customer->no_telpon;
+        $tgl_mulai = $customer->tgl_mulai;
+        $tgl_akhir = $customer->tgl_akhir;
+
+          return json_encode([
+            "id_customer" => $id_customer,
+            "alamat" => $alamat,
+            "no_telpon" => $no_telpon,
+            "tgl_mulai" => $tgl_mulai,
+            "tgl_akhir" => $tgl_akhir,
+
+          ]);
+    }
+
+
+    public function getdataedit(Request $request, $id)
+    {
+        $masuk = Barang_keluar::find($id);
+        $data['quantity']=$masuk->Barang_master->quantity;
+        $data['hargabarang']=$masuk->Barang_master->hargabarang;
+        
+        return $data;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -51,21 +85,27 @@ class BarangkeluarController extends Controller
         $barangkeluar->id_barang = $request->id_barang[$id];
         $barangkeluar->quantity = $request->quantity[$id];
         $barangkeluar->harga_barang = $request->harga_barang[$id];
+        $barangkeluar->total = $request->quantity[$id] * $request->harga_barang[$id];
         $barangkeluar->id_customer = $request->id_customer[$id];
         $barangkeluar->id_karyawan = $request->id_karyawan;
 
         $barang = Barang_master::findOrFail($request->id_barang[$id]);
-        $barang->quantity = $barang->quantity + $request->quantity[$id];
-        
+        $jumlah =  $barang->quantity;
+        $barang->quantity = $barang->quantity - $request->quantity[$id];
+        $barang->harga_barang = $barang->harga_barang - $request->harga_barang[$id];
+         if ($request->quantity[$id] > $barang->quantity) {
+            Session::flash("flash_notification", [
+            "level"=>"primary",
+            "message"=>"Stock yang tersedia hanya" . $jumlah
+            ]);
+            return redirect()->route('barangkeluar.create');
+        }
+           
         $barang->save();    
         $barangkeluar->save();
-    }
-        // attach fungsinya untuk melampirkan data,yang dilampirkan disini ialah data dari method Hobi
-        //  yang ada di model mahasiswa
-        Session::flash("flash_notification", [
-        "level"=>"success",
-        "message"=>"Berhasil menyimpan <b>$barangkeluar->id_barang</b>"
-        ]);
+        
+        }
+       
         return redirect()->route('barangkeluar.index');
     }
 
@@ -110,17 +150,12 @@ class BarangkeluarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
-            'id_barang' => 'required|',
-            'quantity' => 'required|',
-            'harga_barang' => 'required|min:3',
-            'id_customer' => 'required',
-            'id_karyawan' => 'required'
-        ]);
+        
         $barangkeluar = Barang_keluar::findOrFail($id);
         $barangkeluar->id_barang = $request->id_barang;
         $barangkeluar->quantity = $request->quantity;
         $barangkeluar->harga_barang = $request->harga_barang;
+        $barangkeluar->total = $request->quantity * $request->harga_barang;
         $barangkeluar->id_customer = $request->id_customer;
         $barangkeluar->id_karyawan = $request->id_karyawan;
         $barangkeluar->save();
